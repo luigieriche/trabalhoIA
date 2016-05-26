@@ -26,9 +26,22 @@ public void Demanda(int vlr_demanda){
 // e tomar as decisões
 //Se Demanda maior que oferta, entao, deve produzir mais
 if(vlr_demanda > qtd_prod){
-    
+    //Como vendeu tudo que produziu, pegamos o total produzido e multiplicamos pelo valor do produto
+    int receita_bruta = qtd_prod * vlr_prod;
+    int despesas = gastos_fixos + vlr_insumos + vlr_marke ;  
+    int receita_liquida = receita_bruta - despesas;
+    //Atualizando o valor do investimento com o lucro obtido
+    vlr_invest =+ receita_liquida; 
+    //Decidir o quanto a mais produzir 
+
 }else{
-    
+    //Como produzimos mais que vendemos, pegamos entao o que vendemos e multiplicamos pelo valor do produto    
+    int receita_bruta = vlr_demanda * vlr_prod;
+    int despesas = gastos_fixos + vlr_insumos + vlr_marke ;  
+    int receita_liquida = receita_bruta - despesas;
+    //Atualizando o valor do investimento com o lucro obtido
+    vlr_invest =+ receita_liquida; 
+    //Decidir o que fazer para melhorar a venda  
     
 }
 
