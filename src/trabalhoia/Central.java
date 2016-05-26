@@ -17,29 +17,42 @@ public class Central {
     int[] demanda = {100,200,300,400,500,600,700,800,900,1000};
     double venda1, venda2, marke1, marke2, rank1, rank2;
     int demandado;
+    //Array contendo as possiveis porcentagem de quem tem o menor valor de venda
+    double[] porcentagem_venda = {0.40,0.41,0.42,0.43,0.44,0.45,0.46,0.47,0.48,0.49,
+                                 0.50,0.51,0.52,0.53,0.54,0.55,0.56,0.57,0.58,0.59,
+                                 0.60};
+     Random n = new Random();
+     int a = n.nextInt(21);
+     //Array contendo as possiveis porcentagem de quem tem mais investimento em Marketing
+     double[] porcentagem_marketing = {0.17,0.18,0.19,0.20,0.21,0.22,0.23,0.24,0.25};
+     Random m = new Random();
+     int b = m.nextInt(9);
     //Do total de 100% vendido, vamos atribuir 70% aos valores do produto e
     // 30% aos investimentos em Marketing
     //Analisando o Valor do Produto, quem tem valor menor, recebe mais porcentagem da venda
-    if(vlr_prod1 < vlr_prod2){
-        venda1 = 0.40;
-        venda2 = 0.30;
+    //Geramos uma porcentagem aleatorio entre 0.40% a 0.60% para o que tem menor valor
+    if(vlr_prod1 < vlr_prod2){      
+        venda1 = porcentagem_venda[a];
+        venda2 = venda1 - 0.70; //Pega o que foi atribuido para a venda1 e diminui dos 70% totais e atribui o restante a venda2
     }else{
         if(vlr_prod1 > vlr_prod2){
-            venda1 = 0.30;
-            venda2 = 0.40;
+            venda2 = porcentagem_venda[a];
+            venda1 = venda2 - 0.70;            
         }else{ //sao iguais
             venda1 = 0.35;
             venda2 = 0.35;
         }
     }
-    //Analisando o valor investido em marketing
+    //Analisando o valor investido em marketing, geramos aleatoriamente uma porcentagem entre 17% a 25% para quem tem mais 
+    //investimento em marketing
     if(vlr_marke1 < vlr_marke2){
-        marke1 = 0.20;
-        marke2 = 0.10;
+        marke1 = porcentagem_marketing[b];
+        marke2 = marke1 - 0.30;
     }else{
         if(vlr_marke1 > vlr_marke2){
-            marke1 = 0.10;
-            marke2 = 0.20;
+            marke2 = porcentagem_marketing[b];
+            marke1 = marke2 - 0.30;
+
         }else{
             marke1 = 0.15;
             marke2 = 0.15;
@@ -51,16 +64,23 @@ public class Central {
     
     //Gerando a quantidade da demanda
     Random gerador = new Random();
-    int n = gerador.nextInt(10);//Numero aleatorio entre 0-9
-    demandado = demanda[n];
+    int c = gerador.nextInt(10);//Numero aleatorio entre 0-9
+    demandado = demanda[c];
     
     //Gerando a quantidade que cada empresa vendeu
     int vlr_demanda1 = (int) rank1 * demandado;
     int vlr_demanda2 = (int) rank2 * demandado;
-    }
     
     //Como passar o valor vendido para as empresas?
     //chamar alguma funcao da empresa e passar como parametro?
-    //Passar em alguma variavel da empresa?
+    //Passar em alguma variavel da empresa? 
     
+    Empresa1 empresa1 = new Empresa1();
+    empresa1.Demanda(vlr_demanda1);
+    
+    Empresa2 empresa2 = new Empresa2();
+    empresa2.Demanda(vlr_demanda2);
+    }
+    
+     
 }

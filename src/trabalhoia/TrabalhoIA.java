@@ -69,8 +69,8 @@ public class TrabalhoIA {
         empresa2.qtd_prod = qtd_prod2;
         
      //Enviar os dados da producao e preco do produto para o algoritmo central
-     
-     
+     Central central = new Central();
+     central.rank(vlr_prod1, vlr_marke1, vlr_prod2, vlr_marke2);
     }
     
 }
