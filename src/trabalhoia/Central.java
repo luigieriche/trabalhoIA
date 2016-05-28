@@ -13,7 +13,8 @@ public class Central {
     
     
     public void rank(int vlr_prod1, int vlr_marke1, int vlr_prod2, int vlr_marke2){
-    int rodadas = 5; //Como iniciar as rodadas?
+    int n_rodadas = 5;
+    int rodada = 1;
     int[] demanda = {100,200,300,400,500,600,700,800,900,1000};
     double venda1, venda2, marke1, marke2, rank1, rank2;
     int demandado;
@@ -31,13 +32,14 @@ public class Central {
     // 30% aos investimentos em Marketing
     //Analisando o Valor do Produto, quem tem valor menor, recebe mais porcentagem da venda
     //Geramos uma porcentagem aleatorio entre 0.40% a 0.60% para o que tem menor valor
+       
     if(vlr_prod1 < vlr_prod2){      
         venda1 = porcentagem_venda[a];
-        venda2 = venda1 - 0.70; //Pega o que foi atribuido para a venda1 e diminui dos 70% totais e atribui o restante a venda2
+        venda2 = 0.70 - venda1; //Pega o que foi atribuido para a venda1 e diminui dos 70% totais e atribui o restante a venda2
     }else{
         if(vlr_prod1 > vlr_prod2){
             venda2 = porcentagem_venda[a];
-            venda1 = venda2 - 0.70;            
+            venda1 = 0.70 - venda2;            
         }else{ //sao iguais
             venda1 = 0.35;
             venda2 = 0.35;
@@ -47,11 +49,11 @@ public class Central {
     //investimento em marketing
     if(vlr_marke1 < vlr_marke2){
         marke1 = porcentagem_marketing[b];
-        marke2 = marke1 - 0.30;
+        marke2 = 0.30 - marke1 ;
     }else{
         if(vlr_marke1 > vlr_marke2){
             marke2 = porcentagem_marketing[b];
-            marke1 = marke2 - 0.30;
+            marke1 = 0.30 - marke2;
 
         }else{
             marke1 = 0.15;
@@ -71,6 +73,11 @@ public class Central {
     int vlr_demanda1 = (int) rank1 * demandado;
     int vlr_demanda2 = (int) rank2 * demandado;
     
+    //imprimir os valores da rodada
+    System.out.println("Final da Rodada: " + rodada);
+    System.out.println("Empresa 1 Vendeu: " + vlr_demanda1 + " produtos");
+    System.out.println("Empresa 2 Vendeu: " + vlr_demanda2 + " produtos");
+    
     //Como passar o valor vendido para as empresas?
     //chamar alguma funcao da empresa e passar como parametro?
     //Passar em alguma variavel da empresa? 
@@ -80,7 +87,10 @@ public class Central {
     
     Empresa2 empresa2 = new Empresa2();
     empresa2.Demanda(vlr_demanda2);
-    }
+  
+   
+    
+ }
     
      
 }

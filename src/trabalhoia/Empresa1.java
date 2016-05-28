@@ -45,7 +45,12 @@ if(vlr_demanda > qtd_prod){
         vlr_insumos = vlr_insumos + (vlr_insumos / 2);
         qtd_prod = qtd_prod + (qtd_prod / 2);
     }
-   
+   //Imprimir os valores da rodada
+    System.out.println("Empresa 1 - Valores");
+    System.out.println("Valor do Investimento: " + vlr_invest);
+    System.out.println("Valor dos Insumos: " + vlr_insumos);
+    System.out.println("Quantidade Produzida: " + qtd_prod);
+    System.out.println("Preco do Produto: " + vlr_prod);
 
 }else{
     //Como produzimos mais que vendemos, pegamos entao o que vendemos e multiplicamos pelo valor do produto    

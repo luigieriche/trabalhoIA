@@ -67,6 +67,14 @@ public class TrabalhoIA {
         System.out.println("Quantidade Produzida: ");
         qtd_prod2 = ler.nextInt();
         empresa2.qtd_prod = qtd_prod2;
+     
+    System.out.println("Valores Iniciais");
+        System.out.println("Empresa 1");
+        System.out.println("Valor do Produto: "+ vlr_prod1);
+        System.out.println("Valor Investido em Marketing: "+ vlr_marke1);
+        System.out.println("Empresa 2");
+        System.out.println("Valor do Produto: "+ vlr_prod2);
+        System.out.println("Valor Investido em Marketing: "+ vlr_marke2);
         
      //Enviar os dados da producao e preco do produto para o algoritmo central
      Central central = new Central();
