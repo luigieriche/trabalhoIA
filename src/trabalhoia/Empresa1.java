@@ -34,7 +34,18 @@ if(vlr_demanda > qtd_prod){
     //Atualizando o valor do investimento com o lucro obtido
     vlr_invest =+ receita_liquida; 
     //Decidir o quanto a mais produzir
-
+    int diferenca = vlr_demanda - qtd_prod;
+    int dobro = diferenca * 2;
+    if(dobro > qtd_prod){
+        //produzir 100% a mais
+        vlr_insumos = vlr_insumos * 2;
+        qtd_prod = qtd_prod * 2;
+    }else{
+        //produzir somente 50% a mais
+        vlr_insumos = vlr_insumos + (vlr_insumos / 2);
+        qtd_prod = qtd_prod + (qtd_prod / 2);
+    }
+   
 
 }else{
     //Como produzimos mais que vendemos, pegamos entao o que vendemos e multiplicamos pelo valor do produto    
