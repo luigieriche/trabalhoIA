@@ -82,10 +82,10 @@ public class Central {
     //chamar alguma funcao da empresa e passar como parametro?
     //Passar em alguma variavel da empresa? 
     
-    Empresa1 empresa1 = new Empresa1();
+    Empresa empresa1 = new Empresa();
     empresa1.Demanda(vlr_demanda1);
     
-    Empresa2 empresa2 = new Empresa2();
+    Empresa empresa2 = new Empresa();
     empresa2.Demanda(vlr_demanda2);
   
    
