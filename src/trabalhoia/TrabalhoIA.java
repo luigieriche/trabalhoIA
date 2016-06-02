@@ -14,10 +14,17 @@ public class TrabalhoIA {
     public static void main(String[] args) {
         
     Scanner ler = new Scanner(System.in); //para ler dados do teclado
-    Empresa1 empresa1 = new Empresa1();
-    Empresa2 empresa2 = new Empresa2();
+    Central central  = new Central();
     
-    int vlr_invest1, vlr_invest2;  //(Valor Inicial do Investimento)
+    int investimento = 20000;
+    
+    central.investir(investimento);
+    central.interacaoInicial();
+    central.interagir();
+    
+    
+    /*
+    int vlr_invest1, vlr_invest2;  //(Valor Inicial do Investimento)De
     String produto;  //(qual o produto a ser produzido)
     int vlr_prod1, vlr_prod2;  //(qual o valor do produto)
     int vlr_insumos1, vlr_insumos2;  //(os valores dos insumos)
@@ -78,7 +85,7 @@ public class TrabalhoIA {
         
      //Enviar os dados da producao e preco do produto para o algoritmo central
      Central central = new Central();
-     central.rank(vlr_prod1, vlr_marke1, vlr_prod2, vlr_marke2);
-    }
+     central.rank(vlr_prod1, vlr_marke1, vlr_prod2, vlr_marke2);*/
+}
     
 }
