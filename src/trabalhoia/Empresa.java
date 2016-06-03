@@ -35,8 +35,8 @@ if(vlr_demanda > qtd_prod){
     saldo =+ receita_liquida; 
     //Decidir o quanto a mais produzir
     long diferenca = vlr_demanda - qtd_prod;
-    long dobro = diferenca * 2;
-    if(dobro > qtd_prod){
+    long dobro = qtd_prod * 2;
+    if(diferenca > dobro){
         //produzir 100% a mais
         vlr_insumos = vlr_insumos * 2;
         qtd_prod = qtd_prod * 2;
@@ -46,7 +46,7 @@ if(vlr_demanda > qtd_prod){
         qtd_prod = qtd_prod + (qtd_prod / 2);
     }
    //Imprimir os valores da rodada
-    System.out.println("Empresa 1 - Valores");
+    System.out.println("Empresa X - Valores");
     System.out.println("Valor do Investimento: " + saldo);
     System.out.println("Valor dos Insumos: " + vlr_insumos);
     System.out.println("Quantidade Produzida: " + qtd_prod);
