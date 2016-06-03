@@ -81,19 +81,19 @@ public class Central {
         switch (localizacao){
             case "A":
                 empresa1.gastos_fixos = 3000;
-                empresa1.bonus = 0.5;
+                empresa1.bonus = 0.05;
                 break;
             case "B":
                 empresa1.gastos_fixos = 2500;
-                empresa1.bonus = 0.35;
+                empresa1.bonus = 0.035;
                 break;
             case "C":
                 empresa1.gastos_fixos = 2000;
-                empresa1.bonus = 0.2;
+                empresa1.bonus = 0.02;
                 break;
             default:
                 empresa1.gastos_fixos = 4000;
-                empresa1.bonus = 0.1;
+                empresa1.bonus = 0.01;
                 break;
         }
         
@@ -180,27 +180,27 @@ public class Central {
         Random n = new Random();
         int porcentagem = n.nextInt(21);
         
-        if (empresa1.vlr_prod > empresa2.vlr_prod){
-            demanda1 = demanda1 + porcentagem;
-            demanda2 = demanda2+ 0.6 - porcentagem_venda[porcentagem];
+        if (empresa1.vlr_prod < empresa2.vlr_prod){
+            demanda1 = demanda1 + porcentagem_venda[porcentagem];
+            demanda2 = demanda2 + 0.6 - porcentagem_venda[porcentagem];
         }
-        else if (empresa1.vlr_prod < empresa2.vlr_prod){
-            demanda2 = demanda2 + porcentagem;
+        else if (empresa1.vlr_prod > empresa2.vlr_prod){
+            demanda2 = demanda2 + porcentagem_venda[porcentagem];
             demanda1 = demanda1 + 0.6 - porcentagem_venda[porcentagem];
         }
         else{
-            demanda1 = 0.3;
-            demanda2 = 0.3;
+            demanda1 =+ 0.3;
+            demanda2 =+ 0.3;
         }
         
         porcentagem = n.nextInt(11);
         
         if (empresa1.vlr_marke > empresa2.vlr_marke){
-            demanda1 = demanda1 + porcentagem;
+            demanda1 = demanda1 + porcentagem_venda[porcentagem];
             demanda2 = demanda2 + 0.25 - porcentagem_venda[porcentagem];
         }
         else if (empresa1.vlr_marke < empresa2.vlr_marke){
-            demanda2 = demanda2 + porcentagem;
+            demanda2 = demanda2 + porcentagem_venda[porcentagem];
             demanda1 = demanda1 + 0.25 - porcentagem_venda[porcentagem];
         }
         else{
