@@ -20,6 +20,7 @@ public class TrabalhoIA {
     
     central.investir(investimento);
     central.interacaoInicial();
+    central.vender();
     central.interagir();
     
     
