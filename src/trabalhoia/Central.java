@@ -70,7 +70,7 @@ public class Central {
         Scanner scanner = new Scanner(System.in);  
         double d = 0;
         int i = 0;
-        String localizacao;
+        String localizacao, localizacao2;
         
         System.out.println("Empresa 1");
         System.out.println("Valor do Investimento: " + empresa1.saldo);
@@ -81,15 +81,15 @@ public class Central {
         switch (localizacao){
             case "A":
                 empresa1.gastos_fixos = 3000;
-                empresa1.bonus = 0.05;
+                empresa1.bonus = 0.07;
                 break;
             case "B":
                 empresa1.gastos_fixos = 2500;
-                empresa1.bonus = 0.035;
+                empresa1.bonus = 0.04;
                 break;
             case "C":
                 empresa1.gastos_fixos = 2000;
-                empresa1.bonus = 0.02;
+                empresa1.bonus = 0.03;
                 break;
             default:
                 empresa1.gastos_fixos = 4000;
@@ -122,20 +122,20 @@ public class Central {
         System.out.println("Valor do Investimento: " + empresa2.saldo);
         System.out.println("Escolher Localização: A (Melhor Localização, B (Localização Mediana) e C (Pior Localização))");
         System.out.println("Informe a Localização: ");
-        localizacao = scanner.nextLine();  
+        localizacao2 = scanner.nextLine();  
         
         switch (localizacao){
             case "A":
                 empresa2.gastos_fixos = 3000;
-                empresa2.bonus = 0.05;
+                empresa2.bonus = 0.07;
                 break;
             case "B":
                 empresa2.gastos_fixos = 2500;
-                empresa2.bonus = 0.035;
+                empresa2.bonus = 0.04;
                 break;
             case "C":
                 empresa2.gastos_fixos = 2000;
-                empresa2.bonus = 0.02;
+                empresa2.bonus = 0.03;
                 break;
             default:
                 empresa2.gastos_fixos = 4000;
@@ -172,8 +172,9 @@ public class Central {
     }
     
     public void vender(){      
-        double demanda1 = empresa1.bonus;
-        double demanda2 = empresa2.bonus;
+        double rest = (0.15 - (empresa1.bonus + empresa2.bonus)) / 2;
+        double demanda1 = empresa1.bonus + rest;
+        double demanda2 = empresa2.bonus + rest;
         int total1 = 0;
         int total2 = 0;
         
@@ -208,8 +209,9 @@ public class Central {
             demanda2 = demanda2 + 0.125;
         }
         
-        total1 = (int) (demanda1 * demanda[rodada]);
-        total2 = (int) (demanda2 * demanda[rodada]);
+        porcentagem = n.nextInt(10);
+        total1 = (int) (demanda1 * demanda[porcentagem]);
+        total2 = (int) (demanda2 * demanda[porcentagem]);
         
         System.out.println(total1);
         System.out.println(total2);
