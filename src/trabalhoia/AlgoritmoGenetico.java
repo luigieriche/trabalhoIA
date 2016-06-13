@@ -26,20 +26,20 @@ import java.util.Random;
  *
  * @author luiz.ferreira
  */
-public class AgoritmoGenetico {
+public class AlgoritmoGenetico {
      ArrayList<Empresa> pais = new ArrayList<Empresa>();
      Empresa auxiliar = new Empresa();
      
      int geracoes = 5;
 
      Empresa geneneticoCentral(Empresa empresa, Integer criterio){
-        inicia_populacao(empresa);
+        inicia_populacao(empresa, criterio);
         
         for (int x = 0; x < geracoes; x++){
             popula();
             Random n = new Random();
                 int mutacao = n.nextInt(pais.size());
-            auxiliar = mutacao(pais.get(mutacao));
+            auxiliar = mutacao(pais.get(mutacao), criterio);
             pais.set(mutacao, auxiliar);
         
             avalicao(criterio);
@@ -49,10 +49,10 @@ public class AgoritmoGenetico {
         return auxiliar;
     }
      
-    void inicia_populacao(Empresa empresa){
+    void inicia_populacao(Empresa empresa, Integer criterio){
         pais.add(empresa);
         Empresa auxiliar = new Empresa();
-        auxiliar = this.mutacao(empresa);
+        auxiliar = this.mutacao(empresa, criterio);
 
         pais.add(auxiliar);
        
@@ -101,44 +101,43 @@ public class AgoritmoGenetico {
         melhor1 = pais.get(0);
         melhor2 = pais.get(1);
         
-        /*Random n = new Random();
-        int pos1 = n.nextInt(pais.size());
-        int pos2 = n.nextInt(pais.size());
+        System.out.println(melhor1.vlr_prod);
+        System.out.println(melhor2.vlr_prod);
         
-       // Sobe uma posição para o caso de pos1 == pos2
-        if (pos1 == pos2 && pos1 == 0)
-        {pos1 = pos1++;}
-        
-        melhor1 = pais.get(pos1);
-        melhor2 = pais.get(pos2);*/
-        
+
        // Significa que deve produzir mais
         if (criterio == 0){
             for (int x = 2; x < pais.size(); x++){
                 auxiliar = pais.get(x);
-                if ((auxiliar.qtd_prod * auxiliar.vlr_prod) > (melhor1.qtd_prod * melhor1.vlr_prod)){
+                System.out.println(auxiliar.vlr_prod);
+                if ((auxiliar.vlr_prod) > (melhor1.vlr_prod)){
                     melhor2 = melhor1;
                     melhor1 = auxiliar;
                 }
-                else if ((auxiliar.qtd_prod * auxiliar.vlr_prod) > (melhor2.qtd_prod * melhor2.vlr_prod)){
-                    melhor2 = auxiliar;
-                }
-            }
-        }
-        // Selecionar os cromossomos que pretendem vender menos
-        else{
-             for (int x = 2; x < pais.size(); x++){
-                auxiliar = pais.get(x);
-                if ((auxiliar.qtd_prod * auxiliar.vlr_prod) < (melhor1.qtd_prod * melhor1.vlr_prod)){
-                    melhor2 = melhor1;
-                    melhor1 = auxiliar;
-                }
-                else if ((auxiliar.qtd_prod * auxiliar.vlr_prod) < (melhor2.qtd_prod * melhor2.vlr_prod)){
+                else if ((auxiliar.vlr_prod) > (melhor2.vlr_prod )){
                     melhor2 = auxiliar;
                 }
             }
         }
        
+        // Selecionar os cromossomos que pretendem vender menos
+        else{
+             for (int x = 2; x < pais.size(); x++){
+                auxiliar = pais.get(x);
+                System.out.println(auxiliar.vlr_prod);
+                
+                if ((auxiliar.vlr_prod ) < (melhor1.vlr_prod)){
+                    melhor2 = melhor1;
+                    melhor1 = auxiliar;
+                }
+                else if ((auxiliar.vlr_prod ) < (melhor2.vlr_prod )){
+                    melhor2 = auxiliar;
+                }
+            }
+        }
+       
+        System.out.println(melhor1.vlr_prod);
+        System.out.println(melhor2.vlr_prod);
        
         //Limpa o vetor de pais para a próxima interação
         pais.clear();
@@ -156,7 +155,7 @@ public class AgoritmoGenetico {
                   auxiliar = pais.get(0);
               }
               else if ((pais.get(0).qtd_prod * pais.get(0).vlr_prod) <= (pais.get(1).qtd_prod * pais.get(1).vlr_prod)){
-                  auxiliar = pais.get(0);
+                  auxiliar = pais.get(1);
               }     
         }
         // Selecionar os cromossomos que pretendem vender menos
@@ -165,9 +164,11 @@ public class AgoritmoGenetico {
                 auxiliar = pais.get(0);
             }
             else if ((pais.get(0).qtd_prod * pais.get(0).vlr_prod) >= (pais.get(1).qtd_prod * pais.get(1).vlr_prod)){
-                auxiliar = pais.get(0);
+                auxiliar = pais.get(1);
             }       
         }
+         
+         System.out.println("Melhor escolhido: " + auxiliar.qtd_prod);
         
         return auxiliar;
     
@@ -175,23 +176,33 @@ public class AgoritmoGenetico {
     
     
     // Realiza mutação entre os indivíduos gerados
-    Empresa mutacao(Empresa empresa){
+    Empresa mutacao(Empresa empresa, Integer criterio){
         Random n = new Random();
-        int porcentagem_marketing = n.nextInt(20) - 10;
-        int porcentagem_lucro = n.nextInt(20) - 10;
-        int porcentagem_producao = n.nextInt(20) - 10;
+        int porcentagem_marketing = 0;
+        int porcentagem_lucro = 0;
+        int porcentagem_producao = 0;
+        int porcentagem_vlr_produto = 0;
+       
+        if (criterio == 0){
+            porcentagem_marketing = n.nextInt(5);
+            porcentagem_lucro = n.nextInt(5);
+            porcentagem_producao = n.nextInt(5);
+            porcentagem_vlr_produto = n.nextInt(5);
+            
+        }
+        else {
+            porcentagem_marketing = n.nextInt(5) * -1;
+            porcentagem_lucro = n.nextInt(5) * -1;
+            porcentagem_producao = n.nextInt(5) ;
+            porcentagem_vlr_produto = n.nextInt(5) * -1;
+        }
         
-        // O que pode sofrer mutação?
-        // empresa.qtd_prod
-        // empresa.porcentagem_lucro
-        // empresa.vlr_marke
-        
-        empresa.lucro = porcentagem_lucro;
+        empresa.porcentagem_lucro = porcentagem_lucro;
         empresa.vlr_marke = ((empresa.vlr_marke/100)* porcentagem_producao) + empresa.vlr_marke;
         empresa.qtd_prod = ((empresa.qtd_prod/100)* porcentagem_producao) + empresa.qtd_prod;
         
         empresa.custo_prod = 1.70 + (empresa.vlr_marke/empresa.qtd_prod) + (empresa.gastos_fixos/empresa.qtd_prod);
-        empresa.vlr_prod = (((empresa.custo_prod/100)* empresa.porcentagem_lucro) + empresa.custo_prod);
+        empresa.vlr_prod = empresa.vlr_prod + ((empresa.vlr_prod/100) * porcentagem_vlr_produto);
         
         return empresa;
     }

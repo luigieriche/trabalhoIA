@@ -38,7 +38,7 @@ public class Central {
     Empresa empresa2 = new Empresa();
     
     // Define número de Gerações
-    int geracoes = 10;
+    int geracoes = 25;
     
     // Verifica qual o número da rodada
     int rodada = 0;
@@ -163,18 +163,69 @@ public class Central {
     }
        
     public void interagir(){
-       /* for (int x = 0; x < geracoes; x++)
-        {
-
+        AlgoritmoGenetico genetico1 = new AlgoritmoGenetico();
+        AlgoritmoGenetico genetico2 = new AlgoritmoGenetico();
         
-        }  */
-       
-        Empresa novo = new Empresa();
-        AgoritmoGenetico gen = new AgoritmoGenetico();
-        novo = gen.geneneticoCentral(empresa1, 0);
-
-        System.out.println(novo.vlr_prod);
-        System.out.println(novo.qtd_prod);
+        empresa1.saldo = (empresa1.saldo + (empresa1.qtd_vendida * empresa1.vlr_prod)) - (empresa1.vlr_marke + empresa1.gastos_fixos + empresa1.vlr_insumos);
+        empresa2.saldo = (empresa2.saldo + (empresa2.qtd_vendida * empresa2.vlr_prod)) - (empresa2.vlr_marke + empresa2.gastos_fixos + empresa2.vlr_insumos);
+        
+        arrayEmpresa1.add(empresa1);
+        arrayEmpresa2.add(empresa2);
+        
+        System.out.println("Rodada 0: ");
+        System.out.println("Empresa 1");
+         System.out.println("Valor do Produto: " + empresa1.vlr_prod);
+        System.out.println("Quantidade Produzida: " + empresa1.qtd_prod);
+        System.out.println("Quantidade vendida: " + empresa1.qtd_vendida);
+        System.out.println("Quantidade Saldo: " + empresa1.saldo);
+        System.out.println(" ");
+        System.out.println("Empresa 2");
+         System.out.println("Valor do Produto: " + empresa2.vlr_prod);
+        System.out.println("Quantidade Produzida: " + empresa2.qtd_prod);
+        System.out.println("Quantidade vendida: " + empresa2.qtd_vendida);
+        System.out.println("Quantidade Saldo: " + empresa2.saldo);
+        System.out.println(" ");
+        System.out.println(" ");
+        
+        for (int x = 0; x < geracoes; x++)
+        {
+             if (empresa1.qtd_vendida < empresa1.qtd_prod){
+                 empresa1 = genetico1.geneneticoCentral(empresa1, -1);
+             }
+             else{
+                 empresa1 = genetico1.geneneticoCentral(empresa1, 0);
+             }
+             
+             if (empresa2.qtd_vendida < empresa2.qtd_prod){
+                empresa2 = genetico2.geneneticoCentral(empresa2, -1);
+             }
+             else{
+                empresa2 = genetico2.geneneticoCentral(empresa2, 0);
+             }
+             
+            this.vender();
+            
+            empresa1.saldo = (empresa1.saldo + (empresa1.qtd_vendida * empresa1.vlr_prod)) - (empresa1.vlr_marke + empresa1.gastos_fixos + empresa1.vlr_insumos);
+            empresa2.saldo = (empresa2.saldo + (empresa2.qtd_vendida * empresa2.vlr_prod)) - (empresa2.vlr_marke + empresa2.gastos_fixos + empresa2.vlr_insumos);
+        
+            arrayEmpresa1.add(empresa1);
+            arrayEmpresa2.add(empresa2);
+            
+            System.out.println("Rodada " + x);
+            System.out.println("Empresa 1");
+            System.out.println("Valor do Produto: " + empresa1.vlr_prod);
+            System.out.println("Quantidade Produzida: " + empresa1.qtd_prod);
+            System.out.println("Quantidade vendida: " + empresa1.qtd_vendida);
+            System.out.println("Quantidade Saldo: " + empresa1.saldo);
+            System.out.println(" ");
+            System.out.println("Empresa 2");
+             System.out.println("Valor do Produto: " + empresa2.vlr_prod);
+            System.out.println("Quantidade Produzida: " + empresa2.qtd_prod);
+            System.out.println("Quantidade vendida: " + empresa2.qtd_vendida);
+            System.out.println("Quantidade Saldo: " + empresa2.saldo);
+            System.out.println(" ");
+            System.out.println(" ");
+        }  
       
     }
     
@@ -201,27 +252,55 @@ public class Central {
             demanda2 =+ 0.3;
         }
         
+        System.out.println("Demanda 1:" + demanda1);
+        System.out.println("Demanda 2:" + demanda2);
+        System.out.println(" ");
+      
+        
         porcentagem = n.nextInt(11);
         
         if (empresa1.vlr_marke > empresa2.vlr_marke){
-            demanda1 = demanda1 + porcentagem_venda[porcentagem];
-            demanda2 = demanda2 + 0.25 - porcentagem_venda[porcentagem];
+            demanda1 = demanda1 + porcentagem_marketing[porcentagem];
+            demanda2 = demanda2 + 0.25 - porcentagem_marketing[porcentagem];
         }
         else if (empresa1.vlr_marke < empresa2.vlr_marke){
-            demanda2 = demanda2 + porcentagem_venda[porcentagem];
-            demanda1 = demanda1 + 0.25 - porcentagem_venda[porcentagem];
+            demanda2 = demanda2 + porcentagem_marketing[porcentagem];
+            demanda1 = demanda1 + 0.25 - porcentagem_marketing[porcentagem];
         }
         else{
             demanda1 = demanda1 + 0.125;
             demanda2 = demanda2 + 0.125;
         }
         
+        System.out.println("Demanda 1:" + demanda1);
+        System.out.println("Demanda 2:" + demanda2);
+        System.out.println(" ");
+        
         porcentagem = n.nextInt(10);
+               
         total1 = (int) (demanda1 * demanda[porcentagem]);
         total2 = (int) (demanda2 * demanda[porcentagem]);
         
-        System.out.println(total1);
-        System.out.println(total2);
+        if (total1 >= empresa1.qtd_prod){
+            empresa1.qtd_vendida = empresa1.qtd_prod;
+        }
+        else{
+             empresa1.qtd_vendida = total1;
+        }
+        
+         if (total2 >= empresa2.qtd_prod){
+            empresa2.qtd_vendida = empresa2.qtd_prod;
+        }
+        else{
+             empresa2.qtd_vendida = total2;
+        }
+        
+        System.out.println("------------------------------------------------- ");
+        System.out.println("Demanda do Mercado: " + demanda[porcentagem]);
+        System.out.println("Porcentagem de venda da demanda empresa 1 :" + total1);
+        System.out.println("Porcentagem de venda da demanda empresa 2 :" + total2);
+        
+        
         
     }
 }
