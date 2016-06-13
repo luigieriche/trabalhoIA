@@ -30,9 +30,9 @@ import java.util.*;
 public class Central {
     
     // Definimos Arrays para salvar todos objetos gerados a cada interação
-    Empresa[] arrayEmpresa1;
-    Empresa[] arrayEmpresa2;
-    
+    ArrayList<Empresa> arrayEmpresa1 = new ArrayList<Empresa>();
+    ArrayList<Empresa> arrayEmpresa2 = new ArrayList<Empresa>();
+
     // Objetos que serão manuseados a cada interação
     Empresa empresa1 = new Empresa();
     Empresa empresa2 = new Empresa();
@@ -56,8 +56,7 @@ public class Central {
         
     public Central() {
         // Aloca nos arrays a quantidade que existirão de gerações
-        this.arrayEmpresa1 = new Empresa[geracoes];
-        this.arrayEmpresa2 = new Empresa[geracoes];
+
     }
     
     public void investir(int investimento){
@@ -164,11 +163,19 @@ public class Central {
     }
        
     public void interagir(){
-        for (int x = 0; x < geracoes; x++)
+       /* for (int x = 0; x < geracoes; x++)
         {
 
         
-        }  
+        }  */
+       
+        Empresa novo = new Empresa();
+        AgoritmoGenetico gen = new AgoritmoGenetico();
+        novo = gen.geneneticoCentral(empresa1, 0);
+
+        System.out.println(novo.vlr_prod);
+        System.out.println(novo.qtd_prod);
+      
     }
     
     public void vender(){      

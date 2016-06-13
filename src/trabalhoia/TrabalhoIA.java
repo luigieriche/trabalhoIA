@@ -18,6 +18,7 @@ public class TrabalhoIA {
     
     int investimento = 20000;
     
+    
     central.investir(investimento);
     central.interacaoInicial();
     central.vender();
