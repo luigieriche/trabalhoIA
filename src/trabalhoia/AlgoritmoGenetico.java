@@ -101,20 +101,16 @@ public class AlgoritmoGenetico {
         melhor1 = pais.get(0);
         melhor2 = pais.get(1);
         
-        System.out.println(melhor1.vlr_prod);
-        System.out.println(melhor2.vlr_prod);
-        
-
        // Significa que deve produzir mais
         if (criterio == 0){
             for (int x = 2; x < pais.size(); x++){
                 auxiliar = pais.get(x);
-                System.out.println(auxiliar.vlr_prod);
-                if ((auxiliar.vlr_prod) > (melhor1.vlr_prod)){
+
+                if ((auxiliar.vlr_prod * auxiliar.qtd_prod) < (melhor1.vlr_prod * melhor1.qtd_prod)){
                     melhor2 = melhor1;
                     melhor1 = auxiliar;
                 }
-                else if ((auxiliar.vlr_prod) > (melhor2.vlr_prod )){
+                else if ((auxiliar.vlr_prod * auxiliar.qtd_prod) < (melhor2.vlr_prod * melhor2.qtd_prod)){
                     melhor2 = auxiliar;
                 }
             }
@@ -124,20 +120,17 @@ public class AlgoritmoGenetico {
         else{
              for (int x = 2; x < pais.size(); x++){
                 auxiliar = pais.get(x);
-                System.out.println(auxiliar.vlr_prod);
+         
                 
-                if ((auxiliar.vlr_prod ) < (melhor1.vlr_prod)){
+                if ((auxiliar.vlr_prod * auxiliar.qtd_prod) > (melhor1.vlr_prod * melhor1.qtd_prod)){
                     melhor2 = melhor1;
                     melhor1 = auxiliar;
                 }
-                else if ((auxiliar.vlr_prod ) < (melhor2.vlr_prod )){
+                else if ((auxiliar.vlr_prod * auxiliar.qtd_prod) > (melhor2.vlr_prod * melhor2.qtd_prod)){
                     melhor2 = auxiliar;
                 }
             }
         }
-       
-        System.out.println(melhor1.vlr_prod);
-        System.out.println(melhor2.vlr_prod);
        
         //Limpa o vetor de pais para a próxima interação
         pais.clear();
@@ -168,8 +161,7 @@ public class AlgoritmoGenetico {
             }       
         }
          
-         System.out.println("Melhor escolhido: " + auxiliar.qtd_prod);
-        
+      
         return auxiliar;
     
     } //função fit que fará a selação dos pais por meio de um modelo de seleção "Roleta", por exemplo
@@ -185,16 +177,13 @@ public class AlgoritmoGenetico {
        
         if (criterio == 0){
             porcentagem_marketing = n.nextInt(5);
-            porcentagem_lucro = n.nextInt(5);
-            porcentagem_producao = n.nextInt(5);
             porcentagem_vlr_produto = n.nextInt(5);
-            
+            porcentagem_producao = n.nextInt(5);
         }
         else {
             porcentagem_marketing = n.nextInt(5) * -1;
-            porcentagem_lucro = n.nextInt(5) * -1;
-            porcentagem_producao = n.nextInt(5) ;
             porcentagem_vlr_produto = n.nextInt(5) * -1;
+            porcentagem_producao = n.nextInt(5) * -1;
         }
         
         empresa.porcentagem_lucro = porcentagem_lucro;
