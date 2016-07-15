@@ -38,7 +38,7 @@ public class Central {
     Empresa empresa2 = new Empresa();
     
     // Define número de Gerações
-    int geracoes = 25;
+    int geracoes = 12;
     
     // Verifica qual o número da rodada
     int rodada = 0;
@@ -69,13 +69,13 @@ public class Central {
         Scanner scanner = new Scanner(System.in);  
         double d = 0;
         int i = 0;
-        String localizacao, localizacao2;
+        String localizacao, loc2;
         
         System.out.println("Empresa 1");
         System.out.println("Valor do Investimento: " + empresa1.saldo);
         System.out.println("Escolher Localização: A (Melhor Localização, B (Localização Mediana) e C (Pior Localização))");
         System.out.println("Informe a Localização: ");
-        localizacao = scanner.nextLine();  
+        localizacao = scanner.next();  
         
         switch (localizacao){
             case "A":
@@ -96,34 +96,34 @@ public class Central {
                 break;
         }
         
-        System.out.print("Qual a quantidade desejada de produção: ");
+        System.out.println("Qual a quantidade desejada de produção: ");
         i = scanner.nextInt();
         empresa1.qtd_prod = i;
         
         empresa1.vlr_insumos = empresa1.qtd_prod * 1.70;
-        System.out.print("O valor dos insumos são calculados com base na quantidade de produtos, total: " + empresa1.vlr_insumos);
+        System.out.println("O valor dos insumos são calculados com base na quantidade de produtos, total: " + empresa1.vlr_insumos);
         
-        System.out.print("Qual o valor de investimentos em publicidade:");
+        System.out.println("Qual o valor de investimentos em publicidade:");
         d = scanner.nextDouble();
         empresa1.vlr_marke = d;
         
-        System.out.print("Qual será a porcentagem de lucro?");
+        System.out.println("Qual será a porcentagem de lucro?");
         d = scanner.nextDouble();
         empresa1.porcentagem_lucro = d;
         
         empresa1.custo_prod = 1.70 + (empresa1.vlr_marke/empresa1.qtd_prod) + (empresa1.gastos_fixos/empresa1.qtd_prod);
         empresa1.vlr_prod = (((empresa1.custo_prod/100)* empresa1.porcentagem_lucro) + empresa1.custo_prod);
-        System.out.print("Valor apropriado para o produto: " + empresa1.vlr_prod);
+        System.out.println("Valor apropriado para o produto: " + empresa1.vlr_prod);
         
         // Empresa 2
-        scanner.next();
-        System.out.print("Empresa 2");
-        System.out.print("Valor do Investimento: " + empresa2.saldo);
-        System.out.print("Escolher Localização: A (Melhor Localização, B (Localização Mediana) e C (Pior Localização))");
-        System.out.print("Informe a Localização: ");
-        localizacao2 = scanner.nextLine();  
+        System.out.println("\n\n");
+        System.out.println("Empresa 2");
+        System.out.println("Valor do Investimento: " + empresa2.saldo);
+        System.out.println("Escolher Localização: A (Melhor Localização, B (Localização Mediana) e C (Pior Localização))");
+        System.out.println("Informe a Localização: ");
+        loc2 =  scanner.next();  
         
-        switch (localizacao2){
+        switch (loc2){
             case "A":
                 empresa2.gastos_fixos = 3000;
                 empresa2.bonus = 0.07;
@@ -142,24 +142,24 @@ public class Central {
                 break;
         }
         
-        System.out.print("Qual a quantidade desejada de produção: ");
+        System.out.println("Qual a quantidade desejada de produção: ");
         i = scanner.nextInt();
         empresa2.qtd_prod = i;
         
         empresa2.vlr_insumos = empresa2.qtd_prod * 1.70;
-        System.out.print("O valor dos insumos são calculados com base na quantidade de produtos, total: " + empresa2.vlr_insumos);
+        System.out.println("O valor dos insumos são calculados com base na quantidade de produtos, total: " + empresa2.vlr_insumos);
         
-        System.out.print("Qual o valor de investimentos em publicidade:");
+        System.out.println("Qual o valor de investimentos em publicidade:");
         d = scanner.nextDouble();
         empresa2.vlr_marke = d;
         
-        System.out.print("Qual será a porcentagem de lucro?");
+        System.out.println("Qual será a porcentagem de lucro?");
         d = scanner.nextDouble();
         empresa2.porcentagem_lucro = d;
         
         empresa2.custo_prod = 1.70 + (empresa2.vlr_marke/empresa2.qtd_prod) + (empresa2.gastos_fixos/empresa2.qtd_prod);
         empresa2.vlr_prod = (((empresa2.custo_prod/100)* empresa2.porcentagem_lucro) + empresa2.custo_prod);
-        System.out.print("Valor apropriado para o produto: " + empresa2.vlr_prod);
+        System.out.println("Valor apropriado para o produto: " + empresa2.vlr_prod);
     }
        
     public void interagir(){
@@ -187,7 +187,7 @@ public class Central {
         System.out.println(" ");
         System.out.println(" ");
         
-        for (int x = 0; x < geracoes; x++)
+        for (int x = 1; x < geracoes; x++)
         {
              AlgoritmoGenetico genetico1 = new AlgoritmoGenetico();
              AlgoritmoGenetico genetico2 = new AlgoritmoGenetico();
