@@ -111,7 +111,7 @@ public class Central2 {
      double rest = 0;
      double sobra = 0;
 
-     Empresa uma_empresa = new Empresa();
+    
      //Somando os bonus de todas as empresas
      for (int i=0; i < n_players; i++){
          uma_empresa = (Empresa) empresas.get(i);
@@ -198,7 +198,7 @@ public class Central2 {
    //INTERAGIR-----------------------------------------------------------------------------------------------------------------
     
     public void interagir(ArrayList empresas, int n_players){
-       Empresa uma_empresa = new Empresa(); 
+       
       
       //Atualizando o  Saldo
       for(int i=0; i < n_players; i++){
