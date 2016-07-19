@@ -108,7 +108,7 @@ public class Central2 {
      //VENDER-------------------------------------------------------------------------------------------------------------------
     
     public void vender(ArrayList empresas, int n_players){
-     double rest = 0;
+     double rest;
      double sobra = 0;
 
     
@@ -219,7 +219,7 @@ public class Central2 {
           System.out.println(" ");
       }
       
-      AlgoritmoGenetico um_genetico = new AlgoritmoGenetico();
+      AlgoritmoGenetico um_genetico;
       //Array para armazenar os geneticos 
       ArrayList<AlgoritmoGenetico> geneticos = new ArrayList();
       
