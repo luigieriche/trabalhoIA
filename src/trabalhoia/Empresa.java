@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class Empresa {
     
-    String nome; 
+    String localizacao; 
     double saldo;  
     int qtd_prod;
     double vlr_prod;  
@@ -24,5 +24,7 @@ public class Empresa {
     double vlr_marke;     
     double gastos_fixos;
     double bonus;
+    double demanda;
+    int total;
     
 }
