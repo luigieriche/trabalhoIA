@@ -24,14 +24,12 @@ public class TrabalhoIA {
         Central2 central = new Central2();
         System.out.println("Informe a quantidade de Jogadores: ");
         int n_players = ler.nextInt();
-        
         double investimento = 20000;
-        
         //Array para armazenar as empresas
         ArrayList<Empresa> empresas = new ArrayList();
         //Uma empresa qualquer
         Empresa uma_empresa = new Empresa();
-        
+        Manual manual = new Manual();
         //Criando o numero de jogadores
         for(int i=0; i < n_players; i++){
             Empresa aux = new Empresa();
@@ -45,8 +43,24 @@ public class TrabalhoIA {
         }
         
         central.interacaoInicial(empresas, n_players);
-        central.vender(empresas, n_players);
-        central.interagir(empresas, n_players);
+        System.out.println("----------------------------");
+        System.out.println("Quem irá tomar as descisões?");
+        System.out.println("1 - Eu mesmo");
+        System.out.println("2 - Alg. Genético");
+        System.out.println("3 - Alg. Simulated Annealing");
+        System.out.println("Digite a opções: ");
+        int opcao = ler.nextInt();
+        
+        switch(opcao){
+            case 1:
+                manual.interacaoManual(empresas, n_players);
+                
+            case 2:
+                central.vender(empresas, n_players);
+                central.interagir(empresas, n_players);
+            }
+        
+        
         
         
         
@@ -56,4 +70,3 @@ public class TrabalhoIA {
 }
     
 }
-
