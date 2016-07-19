@@ -24,8 +24,8 @@ public class Central2 {
     
     // Porcentagem das possíveis vendas, varia de 40% a 60% para o produto com menor preço
     double[] porcentagem_venda = {0.40,0.41,0.42,0.43,0.44,0.45,0.46,0.47,0.48,0.49,
-                        0.50,0.51,0.52,0.53,0.54,0.55,0.56,0.57,0.58,0.59,
-                        0.60};
+                                  0.50,0.51,0.52,0.53,0.54,0.55,0.56,0.57,0.58,0.59,
+                                  0.60};
     
     // Porcentagem das possíveis vendas, varia de 15% a 25% para o produto com melhor marketing
     double[] porcentagem_marketing = {0.15, 0.16,0.17,0.18,0.19,0.20,0.21,0.22,0.23,0.24,0.25}; 
@@ -108,10 +108,10 @@ public class Central2 {
      //VENDER-------------------------------------------------------------------------------------------------------------------
     
     public void vender(ArrayList empresas, int n_players){
-     double rest;
+     double rest = 0;
      double sobra = 0;
 
-    
+     Empresa uma_empresa = new Empresa();
      //Somando os bonus de todas as empresas
      for (int i=0; i < n_players; i++){
          uma_empresa = (Empresa) empresas.get(i);
@@ -171,7 +171,7 @@ public class Central2 {
      }
      
      //Calculando o total vendido de cada empresa
-     int porcentagem3 = n.nextInt(13);
+     int porcentagem3 = n.nextInt(12);
      
       for(int i=0; i < n_players; i++){
           uma_empresa = (Empresa) empresas.get(i);
@@ -187,8 +187,9 @@ public class Central2 {
           }else
               uma_empresa.qtd_vendida = uma_empresa.total;
       }
+     
       System.out.println("----------------------------------------------------------------------- ");
-      System.out.println("Demanda do Mercado: " + demanda[porcentagem]);
+      System.out.println("Demanda do Mercado: " + demanda[porcentagem3]);
       for(int i=0; i < n_players; i++){
           uma_empresa = (Empresa) empresas.get(i);
           System.out.println("Empresa " + i + " | Porcentagem da Demanda: " + uma_empresa.demanda + " Produtos: "+ uma_empresa.total);
@@ -198,7 +199,7 @@ public class Central2 {
    //INTERAGIR-----------------------------------------------------------------------------------------------------------------
     
     public void interagir(ArrayList empresas, int n_players){
-       
+       Empresa uma_empresa = new Empresa(); 
       
       //Atualizando o  Saldo
       for(int i=0; i < n_players; i++){
@@ -219,8 +220,7 @@ public class Central2 {
           System.out.println(" ");
       }
       
-      AlgoritmoGenetico um_genetico;
-      //Array para armazenar os geneticos 
+      AlgoritmoGenetico um_genetico = new AlgoritmoGenetico();
       ArrayList<AlgoritmoGenetico> geneticos = new ArrayList();
       
       for (int x = 1; x < geracoes; x++){
@@ -245,8 +245,7 @@ public class Central2 {
         for(int i=0; i < n_players; i++){
            uma_empresa = (Empresa) empresas.get(i);
            uma_empresa.saldo += (uma_empresa.qtd_vendida * uma_empresa.vlr_prod) - (uma_empresa.vlr_marke + uma_empresa.gastos_fixos + uma_empresa.vlr_insumos);
-        } 
-        //rodadas
+        }   
         System.out.println("  ");
         System.out.println("Rodada " + x);
         System.out.println("*****************************************");
