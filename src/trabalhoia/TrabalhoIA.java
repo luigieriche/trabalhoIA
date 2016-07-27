@@ -22,6 +22,8 @@ public class TrabalhoIA {
     //central.interagir();
     
         Central2 central = new Central2();
+        Central3 central3 = new Central3();
+        
         System.out.println("Informe a quantidade de Jogadores: ");
         int n_players = ler.nextInt();
         double investimento = 20000;
@@ -42,7 +44,6 @@ public class TrabalhoIA {
             
         }
         
-        central.interacaoInicial(empresas, n_players);
         System.out.println("----------------------------");
         System.out.println("Quem irá tomar as descisões?");
         System.out.println("1 - Eu mesmo");
@@ -52,13 +53,20 @@ public class TrabalhoIA {
         int opcao = ler.nextInt();
         
         switch(opcao){
-            case 1:
+            case 1:   
+                central.interacaoInicial(empresas, n_players);
                 manual.interacaoManual(empresas, n_players);
                 
             case 2:
                 central.vender(empresas, n_players);
                 central.interagir(empresas, n_players);
-            }
+                
+            case 3:
+                central3.interacaoInicial();
+                central3.vender();
+                central3.interagir();
+           }
+        
         
         
         

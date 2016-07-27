@@ -11,11 +11,13 @@
                 então u := w
         k := k + 1
         Calcular Lk e Tk
-    At´e ‘‘critério de parada’’
+    Até "critério de parada"
 
 
  */
 package trabalhoia;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -23,8 +25,17 @@ package trabalhoia;
  */
 public class AlgoritmoSimulatedAnnealing {
     
-    public void inicia(){}
+    ArrayList<Empresa> pais = new ArrayList<Empresa>();
+    Empresa auxiliar = new Empresa();
+     
+    int geracoes = 10;
+    
+    public void inicia(){
+        
+    }
+    
     public void gerarVizinho(){}
+    
     public void calculaCusto(){}
     
     
