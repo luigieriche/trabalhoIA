@@ -175,15 +175,24 @@ public class AlgoritmoGenetico {
         int porcentagem_producao = 0;
         int porcentagem_vlr_produto = 0;
        
+        // Produziu e n vendeu tudo
         if (criterio == 0){
             porcentagem_marketing = n.nextInt(5);
-            porcentagem_vlr_produto = n.nextInt(5);
-            porcentagem_producao = n.nextInt(5);
+            porcentagem_producao = n.nextInt(5) *-1;
+            porcentagem_vlr_produto = n.nextInt(5) *-1;
         }
-        else {
-            porcentagem_marketing = n.nextInt(5) * -1;
+        // Valor do produto do concorrente foi maior e não vendeu tudo
+        else if (criterio == 1){
             porcentagem_vlr_produto = n.nextInt(5) * -1;
-            porcentagem_producao = n.nextInt(5) * -1;
+           // porcentagem_producao = n.nextInt(5);
+           // porcentagem_producao = n.nextInt(5) * -1;
+        }
+        // Valor do produto é menor mas não vendeu tudo
+        else if (criterio == 2){
+            //porcentagem_marketing = n.nextInt(5);
+            porcentagem_producao = n.nextInt(5) ;
+            porcentagem_vlr_produto = n.nextInt(5);
+        
         }
         
         empresa.porcentagem_lucro = porcentagem_lucro;

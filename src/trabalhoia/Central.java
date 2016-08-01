@@ -192,9 +192,11 @@ public class Central {
              AlgoritmoGenetico genetico1 = new AlgoritmoGenetico();
              AlgoritmoGenetico genetico2 = new AlgoritmoGenetico();
             
+             //Sobrou Produtos de venda - É preciso produzir menos
              if (empresa1.qtd_vendida < empresa1.qtd_prod){
                  empresa1 = genetico1.geneneticoCentral(empresa1, 0);
              }
+             //Não sobrou produto de venda - É preciso produzir mais
              else {
                  empresa1 = genetico1.geneneticoCentral(empresa1, -1);
              }

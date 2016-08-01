@@ -194,13 +194,14 @@ public class Central3 {
             
              //Parâmetro para a função Fitness do Annealing
              
-            /* if (empresa1.qtd_vendida < empresa1.qtd_prod){
-                 empresa1 = annealing1.geneneticoCentral(empresa1, 0);
+             if (empresa1.qtd_vendida < empresa1.qtd_prod){
+                 empresa1 = annealing1.inicia(empresa1, 0);
              }
              else {
-                 empresa1 = genetico1.geneneticoCentral(empresa1, -1);
+                 empresa1 = annealing1.inicia(empresa1, 1);
              }
              
+             /*
              if (empresa2.qtd_vendida < empresa2.qtd_prod){
                 empresa2 = genetico2.geneneticoCentral(empresa2, 0);
              }
