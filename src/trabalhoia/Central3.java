@@ -20,7 +20,7 @@ public class Central3 {
     int rodada = 0;
     
     // Valor das demandas para o número de geracoes
-    int[] demanda = {500,650,800,1000,1200,1100,1400,1500,1500,1700,1800,1900,2000};
+    int[] demanda = {500,650,800,1000,1200,1100,1400,1500,1600,1700,1800,1900,2000};
     
     // Porcentagem das possíveis vendas, varia de 40% a 60% para o produto com menor preço
     double[] porcentagem_venda = {0.40,0.41,0.42,0.43,0.44,0.45,0.46,0.47,0.48,0.49,
