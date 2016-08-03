@@ -1,302 +1,269 @@
 /*
-    Notações Importantes:
-
-    String nome; 
-    double saldo;               |  é o saldo inicial e saldo que irá ser atualizado durante a execução do algoritmo
-    int qtd_prod;               |  quantidade de produtos 
-    double vlr_prod;            |  o valor do produto será uma função definida por: custos + % de lucro (Onde custos estão relacionados aos Insumos, Marketing, e os Gastos fixos)
-    double custo_prod;          |  é o custo do produto, por valor unitário.
-    double porcentagem_lucro;   
-    double lucro;
-    int qtd_vendida;
-    double vlr_insumos;         |  ou materia prima, será o conjunto de todos os ingredientes para a produção do produto
-    double vlr_marke;           |  os valores gastos com propagandas, cartazes, notificações em rádios, etc.
-    double gastos_fixos;        |  os valores gastos fixos como aguá, funcionários, luz, etc.
-    double bonus;
-
-    gastos_fixos:
-    - Selecionando Instalação A: garantirá +5% nas vendas, no entanto o custo fixo será de R$ 3.000,00
-    - Selecionando Instalação B: garantirá +3,5% nas vendas, no entanto o custo fixo será de R$ 2.500,00
-    - Selecionando Instalação C: garantirá +2% nas vendas, no entanto o custo fixo será de R$ 2.000
-    *Os gastos fixos estão relacionados principalmente às questões de localização, quanto mais próximo de um local com maior ganho 
-    nas vendas, maior é o valor relacionado a ele. Ambas as empresas podem selecionar o mesmo local.
-
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package trabalhoia;
+
 import java.util.*;
+
 /**
+ *
  * @author Anderson
  */
 public class Central3 {
     
-    // Definimos Arrays para salvar todos objetos gerados a cada interação
-    ArrayList<Empresa> arrayEmpresa1 = new ArrayList<Empresa>();
-    ArrayList<Empresa> arrayEmpresa2 = new ArrayList<Empresa>();
-
-    // Objetos que serão manuseados a cada interação
-    Empresa empresa1 = new Empresa();
-    Empresa empresa2 = new Empresa();
-    
-    // Define número de Gerações
-    int geracoes = 12;
+// Define número de Gerações
+    int geracoes = 10;
     
     // Verifica qual o número da rodada
     int rodada = 0;
     
     // Valor das demandas para o número de geracoes
-    int[] demanda = {1000,1200,1100,1400,1500,1500,1700,1800,1900,2000};
+    int[] demanda = {500,650,800,1000,1200,1100,1400,1500,1500,1700,1800,1900,2000};
     
     // Porcentagem das possíveis vendas, varia de 40% a 60% para o produto com menor preço
     double[] porcentagem_venda = {0.40,0.41,0.42,0.43,0.44,0.45,0.46,0.47,0.48,0.49,
-                        0.50,0.51,0.52,0.53,0.54,0.55,0.56,0.57,0.58,0.59,
-                        0.60};
+                                  0.50,0.51,0.52,0.53,0.54,0.55,0.56,0.57,0.58,0.59,
+                                  0.60};
     
     // Porcentagem das possíveis vendas, varia de 15% a 25% para o produto com melhor marketing
-    double[] porcentagem_marketing = {0.15, 0.16,0.17,0.18,0.19,0.20,0.21,0.22,0.23,0.24,0.25};
-        
-    public Central3() {
-        // Aloca nos arrays a quantidade que existirão de gerações
-
-    }
+    double[] porcentagem_marketing = {0.15, 0.16,0.17,0.18,0.19,0.20,0.21,0.22,0.23,0.24,0.25}; 
     
-    public void investir(int investimento){
-        empresa1.saldo = investimento;
-        empresa2.saldo = investimento;
-    }
+    Empresa uma_empresa = new Empresa();
     
-    public void interacaoInicial(){
+    Scanner scanner = new Scanner(System.in); 
+    
+   //Interecao Inicial------------------------------------------------------------------------------------------------------- 
+    public void interacaoInicial(ArrayList empresas, int n_players){
+        int j;
+        double d;
         
-        Scanner scanner = new Scanner(System.in);  
-        double d = 0;
-        int i = 0;
-        String localizacao, loc2;
-        
-        System.out.println("Empresa 1");
-        System.out.println("Valor do Investimento: " + empresa1.saldo);
-        System.out.println("Escolher Localização: A (Melhor Localização, B (Localização Mediana) e C (Pior Localização))");
-        System.out.println("Informe a Localização: ");
-        localizacao = scanner.next();  
-        
-        switch (localizacao){
-            case "A":
-                empresa1.gastos_fixos = 3000;
-                empresa1.bonus = 0.07;
-                break;
-            case "B":
-                empresa1.gastos_fixos = 2500;
-                empresa1.bonus = 0.04;
-                break;
-            case "C":
-                empresa1.gastos_fixos = 2000;
-                empresa1.bonus = 0.03;
-                break;
-            default:
-                empresa1.gastos_fixos = 4000;
-                empresa1.bonus = 0.01;
-                break;
-        }
-        
-        System.out.println("Qual a quantidade desejada de produção: ");
-        i = scanner.nextInt();
-        empresa1.qtd_prod = i;
-        
-        empresa1.vlr_insumos = empresa1.qtd_prod * 1.70;
-        System.out.println("O valor dos insumos são calculados com base na quantidade de produtos, total: " + empresa1.vlr_insumos);
-        
-        System.out.println("Qual o valor de investimentos em publicidade:");
-        d = scanner.nextDouble();
-        empresa1.vlr_marke = d;
-        
-        System.out.println("Qual será a porcentagem de lucro?");
-        d = scanner.nextDouble();
-        empresa1.porcentagem_lucro = d;
-        
-        empresa1.custo_prod = 1.70 + (empresa1.vlr_marke/empresa1.qtd_prod) + (empresa1.gastos_fixos/empresa1.qtd_prod);
-        empresa1.vlr_prod = (((empresa1.custo_prod/100)* empresa1.porcentagem_lucro) + empresa1.custo_prod);
-        System.out.println("Valor apropriado para o produto: " + empresa1.vlr_prod);
-        
-        // Empresa 2
-        System.out.println("\n\n");
-        System.out.println("Empresa 2");
-        System.out.println("Valor do Investimento: " + empresa2.saldo);
-        System.out.println("Escolher Localização: A (Melhor Localização, B (Localização Mediana) e C (Pior Localização))");
-        System.out.println("Informe a Localização: ");
-        loc2 =  scanner.next();  
-        
-        switch (loc2){
-            case "A":
-                empresa2.gastos_fixos = 3000;
-                empresa2.bonus = 0.07;
-                break;
-            case "B":
-                empresa2.gastos_fixos = 2500;
-                empresa2.bonus = 0.04;
-                break;
-            case "C":
-                empresa2.gastos_fixos = 2000;
-                empresa2.bonus = 0.03;
-                break;
-            default:
-                empresa2.gastos_fixos = 4000;
-                empresa2.bonus = 0.01;
-                break;
-        }
-        
-        System.out.println("Qual a quantidade desejada de produção: ");
-        i = scanner.nextInt();
-        empresa2.qtd_prod = i;
-        
-        empresa2.vlr_insumos = empresa2.qtd_prod * 1.70;
-        System.out.println("O valor dos insumos são calculados com base na quantidade de produtos, total: " + empresa2.vlr_insumos);
-        
-        System.out.println("Qual o valor de investimentos em publicidade:");
-        d = scanner.nextDouble();
-        empresa2.vlr_marke = d;
-        
-        System.out.println("Qual será a porcentagem de lucro?");
-        d = scanner.nextDouble();
-        empresa2.porcentagem_lucro = d;
-        
-        empresa2.custo_prod = 1.70 + (empresa2.vlr_marke/empresa2.qtd_prod) + (empresa2.gastos_fixos/empresa2.qtd_prod);
-        empresa2.vlr_prod = (((empresa2.custo_prod/100)* empresa2.porcentagem_lucro) + empresa2.custo_prod);
-        System.out.println("Valor apropriado para o produto: " + empresa2.vlr_prod);
-    }
        
-    public void interagir(){
-      
+        //Gerando os parametros de cada empresa
+        for (int i=0; i < n_players; i++){
+        uma_empresa = (Empresa) empresas.get(i);
+        System.out.println("Empresa " + i);
+        System.out.println("Valor do Investimento: " + uma_empresa.saldo);
+        System.out.println("Escolher Localização: A (Melhor Localização, B (Localização Mediana) e C (Pior Localização))");
+        System.out.println("Informe a Localização: ");
+        uma_empresa.localizacao = scanner.next();  
         
-        empresa1.saldo = (empresa1.saldo + (empresa1.qtd_vendida * empresa1.vlr_prod)) - (empresa1.vlr_marke + empresa1.gastos_fixos + empresa1.vlr_insumos);
-        empresa2.saldo = (empresa2.saldo + (empresa2.qtd_vendida * empresa2.vlr_prod)) - (empresa2.vlr_marke + empresa2.gastos_fixos + empresa2.vlr_insumos);
+        switch (uma_empresa.localizacao){
+            case "A":
+                uma_empresa.gastos_fixos = 3000;
+                uma_empresa.bonus = 0.07;
+                break;
+            case "B":
+                uma_empresa.gastos_fixos = 2500;
+                uma_empresa.bonus = 0.04;
+                break;
+            case "C":
+                uma_empresa.gastos_fixos = 2000;
+                uma_empresa.bonus = 0.03;
+                break;
+            default:
+                uma_empresa.gastos_fixos = 4000;
+                uma_empresa.bonus = 0.01;
+                break;
+        }
         
-        arrayEmpresa1.add(empresa1);
-        arrayEmpresa2.add(empresa2);
+        System.out.println("Qual a quantidade desejada de produção: ");
+        j = scanner.nextInt();
+        uma_empresa.qtd_prod = j;
         
-        System.out.println("Rodada 0: ");
-        System.out.println("*****************************************");
-        System.out.println("Empresa 1");
-         System.out.println("Valor do Produto: " + empresa1.vlr_prod);
-        System.out.println("Quantidade Produzida: " + empresa1.qtd_prod);
-        System.out.println("Quantidade vendida: " + empresa1.qtd_vendida);
-        System.out.println("Quantidade Saldo: " + empresa1.saldo);
+        uma_empresa.vlr_insumos = uma_empresa.qtd_prod * 1.70;
+        System.out.println("O valor dos insumos são calculados com base na quantidade de produtos, total: " + uma_empresa.vlr_insumos);
+        
+        System.out.println("Qual o valor de investimentos em publicidade:");
+        d = scanner.nextDouble();
+        uma_empresa.vlr_marke = d;
+        
+        System.out.println("Qual será a porcentagem de lucro?");
+        d = scanner.nextDouble();
+        uma_empresa.porcentagem_lucro = d;
+        uma_empresa.custo_prod = 1.70 + (uma_empresa.vlr_marke/uma_empresa.qtd_prod) + (uma_empresa.gastos_fixos/uma_empresa.qtd_prod);
+        uma_empresa.vlr_prod = (((uma_empresa.custo_prod/100)* uma_empresa.porcentagem_lucro) + uma_empresa.custo_prod);
+        System.out.println("Valor apropriado para o produto: " + uma_empresa.vlr_prod);
         System.out.println(" ");
-        System.out.println("Empresa 2");
-         System.out.println("Valor do Produto: " + empresa2.vlr_prod);
-        System.out.println("Quantidade Produzida: " + empresa2.qtd_prod);
-        System.out.println("Quantidade vendida: " + empresa2.qtd_vendida);
-        System.out.println("Quantidade Saldo: " + empresa2.saldo);
-        System.out.println(" ");
-        System.out.println(" ");
         
-        for (int x = 1; x < geracoes; x++)
-        {
-             AlgoritmoSimulatedAnnealing annealing1 = new AlgoritmoSimulatedAnnealing();
-             AlgoritmoSimulatedAnnealing annealing2 = new AlgoritmoSimulatedAnnealing();
-            
-             //Parâmetro para a função Fitness do Annealing
-             
-             if (empresa1.qtd_vendida < empresa1.qtd_prod){
-                 empresa1 = annealing1.inicia(empresa1, 0);
-             }
-             else {
-                 empresa1 = annealing1.inicia(empresa1, 1);
-             }
-             
-             /*
-             if (empresa2.qtd_vendida < empresa2.qtd_prod){
-                empresa2 = genetico2.geneneticoCentral(empresa2, 0);
-             }
-             else{
-                empresa2 = genetico2.geneneticoCentral(empresa2, -1);
-             }
-             */
-            this.vender();
-            
-            empresa1.saldo = (empresa1.saldo + (empresa1.qtd_vendida * empresa1.vlr_prod)) - (empresa1.vlr_marke + empresa1.gastos_fixos + empresa1.vlr_insumos);
-            empresa2.saldo = (empresa2.saldo + (empresa2.qtd_vendida * empresa2.vlr_prod)) - (empresa2.vlr_marke + empresa2.gastos_fixos + empresa2.vlr_insumos);
-        
-            arrayEmpresa1.add(empresa1);
-            arrayEmpresa2.add(empresa2);
-            
-            System.out.println("Rodada " + x);
-            System.out.println("*****************************************");
-            System.out.println("Empresa 1");
-            System.out.println("Valor do Produto: " + empresa1.vlr_prod);
-            System.out.println("Quantidade Produzida: " + empresa1.qtd_prod);
-            System.out.println("Quantidade vendida: " + empresa1.qtd_vendida);
-            System.out.println("Quantidade Saldo: " + empresa1.saldo);
-            System.out.println(" ");
-            System.out.println("Empresa 2");;
-             System.out.println("Valor do Produto: " + empresa2.vlr_prod);
-            System.out.println("Quantidade Produzida: " + empresa2.qtd_prod);
-            System.out.println("Quantidade vendida: " + empresa2.qtd_vendida);
-            System.out.println("Quantidade Saldo: " + empresa2.saldo);
-            System.out.println(" ");
-            System.out.println(" ");
-        }  
-      
+        }
+      //Imprimindo os parametros iniciais
+      System.out.println("+++Parametros Iniciais+++");
+      for (int i=0; i < n_players; i++){
+          uma_empresa = (Empresa) empresas.get(i);
+          System.out.println("Empresa: " + i);
+          System.out.println("Localizacao: " + uma_empresa.localizacao);
+          System.out.println("Investimento: " + uma_empresa.saldo);
+          System.out.println("Producao: " + uma_empresa.qtd_prod);
+          System.out.println("Insumos: " + uma_empresa.vlr_insumos);
+          System.out.println("Valor Marketing: " + uma_empresa.vlr_marke);
+          System.out.println("Valor Produto: " + uma_empresa.vlr_prod);
+          System.out.println("Lucro: " + uma_empresa.porcentagem_lucro);
+          System.out.println("Gastos Fixos: " + uma_empresa.gastos_fixos);
+          System.out.println(" ");   
+      }
+         
     }
+     //VENDER-------------------------------------------------------------------------------------------------------------------
     
-    public void vender(){      
-        double rest = (0.15 - (empresa1.bonus + empresa2.bonus)) / 2;
-        double demanda1 = empresa1.bonus + rest;
-        double demanda2 = empresa2.bonus + rest;
-        int total1 = 0;
-        int total2 = 0;
-        
-        Random n = new Random();
-        int porcentagem = n.nextInt(21);
-        
-        if (empresa1.vlr_prod < empresa2.vlr_prod){
-            demanda1 = demanda1 + porcentagem_venda[porcentagem];
-            demanda2 = demanda2 + 0.6 - porcentagem_venda[porcentagem];
-        }
-        else if (empresa1.vlr_prod > empresa2.vlr_prod){
-            demanda2 = demanda2 + porcentagem_venda[porcentagem];
-            demanda1 = demanda1 + 0.6 - porcentagem_venda[porcentagem];
-        }
-        else{
-            demanda1 =+ 0.3;
-            demanda2 =+ 0.3;
-        }
-              
-        porcentagem = n.nextInt(11);
-        
-        if (empresa1.vlr_marke > empresa2.vlr_marke){
-            demanda1 = demanda1 + porcentagem_marketing[porcentagem];
-            demanda2 = demanda2 + 0.25 - porcentagem_marketing[porcentagem];
-        }
-        else if (empresa1.vlr_marke < empresa2.vlr_marke){
-            demanda2 = demanda2 + porcentagem_marketing[porcentagem];
-            demanda1 = demanda1 + 0.25 - porcentagem_marketing[porcentagem];
-        }
-        else{
-            demanda1 = demanda1 + 0.125;
-            demanda2 = demanda2 + 0.125;
-        }
-              
-        porcentagem = n.nextInt(10);
+    public void vender(ArrayList empresas, int n_players){
+     double rest = 0;
+     double sobra = 0;
+
+     Empresa uma_empresa = new Empresa();
+     //Somando os bonus de todas as empresas
+     for (int i=0; i < n_players; i++){
+         uma_empresa = (Empresa) empresas.get(i);
+         sobra += uma_empresa.bonus; 
+     }
+     
+     //O resto sera dividido entre os jogadores 
+     rest = (0.15 - sobra)/n_players;
+     
+     //Atualizando a demanda
+     for (int i=0; i < n_players; i++){
+         uma_empresa = (Empresa) empresas.get(i);
+         uma_empresa.demanda = uma_empresa.bonus + rest;
+     }
+    
+     Random n = new Random();
+     int porcentagem = n.nextInt(21);
+     
+     //Achar a empresa com MENOR valor de PRODUTO
+     Empresa menor = (Empresa) empresas.get(0);
+     for (int i=0; i < n_players; i++){
+         uma_empresa = (Empresa) empresas.get(i);
+         if(uma_empresa.vlr_prod <= menor.vlr_prod){
+             menor = uma_empresa;
+         }
+     }
+     menor.demanda += porcentagem_venda[porcentagem];
+     
+     //Dividir o Restante da Demanda com os demais jogadores
+     double rest_demanda = (0.6 - porcentagem_venda[porcentagem]) / (n_players - 1);
+     
+     for(int i=0; i < n_players; i++){
+         uma_empresa = (Empresa) empresas.get(i);
+         if(uma_empresa != menor){
+             uma_empresa.demanda += rest_demanda;
+         }
+     }
+     //Achar a empresa com o MAIOR valor de MARKETING
+     int porcentagem2 = n.nextInt(11);
+     Empresa maior = (Empresa) empresas.get(0);
+     
+     for (int i=0; i < n_players; i++){
+         if(uma_empresa.vlr_marke <= maior.vlr_marke){
+             maior = uma_empresa;
+         }
+     }
+     maior.demanda += porcentagem_marketing[porcentagem2];
+     
+     //Dividir o Restante da Demanda com os demais jogadores
+     double rest_demanda2 = (0.25 - porcentagem_marketing[porcentagem2]) / (n_players - 1);
+     
+     for(int i=0; i < n_players; i++){
+         uma_empresa = (Empresa) empresas.get(i);
+         if(uma_empresa != maior){
+             uma_empresa.demanda += rest_demanda;
+         }
+     }
+     
+     //Calculando o total vendido de cada empresa
+     int porcentagem3 = n.nextInt(12);
+     
+      for(int i=0; i < n_players; i++){
+          uma_empresa = (Empresa) empresas.get(i);
+          double v1 = uma_empresa.demanda;
+          int v2 = demanda[porcentagem3];
+          uma_empresa.total = (int) (v1 * v2);
+      }
+      
+      for(int i=0; i < n_players; i++){
+          uma_empresa = (Empresa) empresas.get(i);
+          if(uma_empresa.total >= uma_empresa.qtd_prod){
+              uma_empresa.qtd_vendida = uma_empresa.qtd_prod;
+          }else
+              uma_empresa.qtd_vendida = uma_empresa.total;
+      }
+     
+      System.out.println("----------------------------------------------------------------------- ");
+      System.out.println("Demanda do Mercado: " + demanda[porcentagem3]);
+      for(int i=0; i < n_players; i++){
+          uma_empresa = (Empresa) empresas.get(i);
+          System.out.println("Empresa " + i + " | Porcentagem da Demanda: " + uma_empresa.demanda + " Produtos: "+ uma_empresa.total);
+      }
+     }
+     
+   //INTERAGIR-----------------------------------------------------------------------------------------------------------------
+    
+    public void interagir(ArrayList empresas, int n_players){
+       Empresa uma_empresa = new Empresa(); 
+      
+      //Atualizando o  Saldo
+      for(int i=0; i < n_players; i++){
+          uma_empresa = (Empresa) empresas.get(i);
+          uma_empresa.saldo += (uma_empresa.qtd_vendida * uma_empresa.vlr_prod) - (uma_empresa.vlr_marke + uma_empresa.gastos_fixos + uma_empresa.vlr_insumos);
+      }
+      System.out.println("  ");
+      System.out.println("Rodada 0: ");
+      System.out.println("*****************************************");
+      
+      for(int i=0; i < n_players; i++){
+          uma_empresa = (Empresa) empresas.get(i);
+          System.out.println("Empresa " + i);
+          System.out.println("Valor do Produto: " + uma_empresa.vlr_prod);
+          System.out.println("Quantidade Produzida: " + uma_empresa.qtd_prod);
+          System.out.println("Quantidade vendida: " + uma_empresa.qtd_vendida);
+          System.out.println("Quantidade Saldo: " + uma_empresa.saldo);
+          System.out.println(" ");
+      }
+      
+      AlgoritmoSimulatedAnnealing um_annealing = new AlgoritmoSimulatedAnnealing();
+      ArrayList<AlgoritmoSimulatedAnnealing> annealings = new ArrayList();
+      
+      for (int x = 1; x < geracoes; x++){
+          for(int i=0; i< n_players; i++){
+              AlgoritmoSimulatedAnnealing aux = new AlgoritmoSimulatedAnnealing();
+              annealings.add(aux);
+          }
+          
+          for (int i=0; i < n_players; i++){
+               uma_empresa = (Empresa) empresas.get(i);
+               um_annealing = (AlgoritmoSimulatedAnnealing) annealings.get(i);
                
-        total1 = (int) (demanda1 * demanda[porcentagem]);
-        total2 = (int) (demanda2 * demanda[porcentagem]);
-        
-        if (total1 >= empresa1.qtd_prod){
-            empresa1.qtd_vendida = empresa1.qtd_prod;
+               if(uma_empresa.qtd_vendida < uma_empresa.qtd_prod){
+                   uma_empresa = um_annealing.inicia(uma_empresa, 0);
+               }else
+                   uma_empresa = um_annealing.inicia(uma_empresa, -1);
+            }
+          
+          this.vender(empresas, n_players);
+      
+      //Atualizando saldo novamente
+        for(int i=0; i < n_players; i++){
+           uma_empresa = (Empresa) empresas.get(i);
+           uma_empresa.saldo += (uma_empresa.qtd_vendida * uma_empresa.vlr_prod) - (uma_empresa.vlr_marke + uma_empresa.gastos_fixos + uma_empresa.vlr_insumos);
+        }   
+        System.out.println("  ");
+        System.out.println("Rodada " + x);
+        System.out.println("*****************************************");
+        for(int i=0; i < n_players; i++){
+           uma_empresa = (Empresa) empresas.get(i);
+           System.out.println("Empresa " + i);
+           System.out.println("Valor do Produto: " + uma_empresa.vlr_prod);
+           System.out.println("Quantidade Produzida: " + uma_empresa.qtd_prod);
+           System.out.println("Quantidade vendida: " + uma_empresa.qtd_vendida);
+           System.out.println("Quantidade Saldo: " + uma_empresa.saldo);
+           System.out.println(" ");
+          }
         }
-        else{
-             empresa1.qtd_vendida = total1;
+          
         }
-        
-         if (total2 >= empresa2.qtd_prod){
-            empresa2.qtd_vendida = empresa2.qtd_prod;
-        }
-        else{
-             empresa2.qtd_vendida = total2;
-        }
-        
-        System.out.println("----------------------------------------------------------------------- ");
-        System.out.println("Demanda do Mercado: " + demanda[porcentagem]);
-        System.out.println("Empresa 1 | Porcentagem da Demanda:"+ demanda1 + " Produtos:"+ total1);
-        System.out.println("Empresa 2 | Porcentagem da Demanda:"+ demanda2 + " Produtos:"+ total2);
-        
     }
-}
+
+      
+      
+
+

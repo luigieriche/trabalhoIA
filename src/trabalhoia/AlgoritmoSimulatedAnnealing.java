@@ -17,6 +17,7 @@
  */
 package trabalhoia;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -26,37 +27,49 @@ import java.util.Random;
  */
 public class AlgoritmoSimulatedAnnealing {
     
-    ArrayList<Empresa> pais = new ArrayList<Empresa>();
     Empresa auxiliar = new Empresa();
-     
-    int geracoes = 10;
-    
-    public void inicia(Empresa empresa, int criterio){
+         
+    public Empresa inicia(Empresa empresa, int criterio){
         auxiliar = empresa;
-        
-        int t0 = 10;
-        int l0 = 20;
         Empresa vizinho = new Empresa();
         double custoAtual, custoVizinho;
         
-        for (int k = 0; k<= l0; k++){  
-            for (int l = 1; k )
-           // Para l = 1 ATÉ Lk
+        //t0: temperatura inicial, lk: número de interações
+        int t0 = 10;
+        int lk = 20;
+        
+        //Inicialização das variáveis
+        double tk = t0;
+        double deltaCusto = 0;
+
+        while (tk > 1 || lk != 0){
+                // Para temperatura inicial chegar até zero
                 vizinho = gerarVizinho(empresa, criterio);
+                
+                // Funções para gerar o Custo da escolha atual em auxiliar, e do vizinho gerado
                 custoAtual = calculaCusto(auxiliar, empresa, criterio);
                 custoVizinho = calculaCusto(vizinho, empresa, criterio);
                 
-                if (custoAtual >= custoVizinho)
+                // Gera diferença dos custos
+                deltaCusto = custoAtual - custoVizinho;
+                
+                if (deltaCusto >= 0)
                     {
+                        // Atualiza auxiliar como sendo vizinho, pelo fato de ser uma solução melhor
                         auxiliar = vizinho;
                     }
                 else {
-                    if ()
+                    BigDecimal expoente = new BigDecimal(deltaCusto/tk);
+                    
+                    if (Math.pow(Math.E, tk) > Math.random())
                         auxiliar = vizinho;
                     }
- 
-           // Calcular Lk e Tk          
+            //Calcular Tk 
+            tk = 0.5 * (tk-1);
+            lk--;
         }
+        
+        return auxiliar;
     }
     
     public Empresa gerarVizinho(Empresa empresa, int criterio){
@@ -128,9 +141,7 @@ public class AlgoritmoSimulatedAnnealing {
             default:
                 break;
         }
-            
         return custo;
-    
     }
     
     
