@@ -56,15 +56,19 @@ public class TrabalhoIA {
             case 1:   
                 central.interacaoInicial(empresas, n_players);
                 manual.interacaoManual(empresas, n_players);
+                break;
                 
             case 2:
+                central.interacaoInicial(empresas, n_players);
                 central.vender(empresas, n_players);
                 central.interagir(empresas, n_players);
+                break;
                 
             case 3:
                 central3.interacaoInicial(empresas, n_players);
                 central3.vender(empresas, n_players);
                 central3.interagir(empresas, n_players);
+                break;
            }
 }
     
