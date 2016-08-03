@@ -14,6 +14,12 @@ public class TrabalhoIA {
     public static void main(String[] args) {
         
     Scanner ler = new Scanner(System.in); //para ler dados do teclado
+    //Central central  = new Central();
+    //int investimento = 20000;
+    //central.investir(investimento);
+    //central.interacaoInicial();
+    //central.vender();
+    //central.interagir();
     
         Central2 central = new Central2();
         Central3 central3 = new Central3();

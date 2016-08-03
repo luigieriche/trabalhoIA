@@ -35,8 +35,8 @@ public class AlgoritmoSimulatedAnnealing {
         double custoAtual, custoVizinho;
         
         //t0: temperatura inicial, lk: número de interações
-        int t0 = 10;
-        int lk = 20;
+        int t0 = 30;
+        int lk = 50;
         
         //Inicialização das variáveis
         double tk = t0;
@@ -57,16 +57,19 @@ public class AlgoritmoSimulatedAnnealing {
                     {
                         // Atualiza auxiliar como sendo vizinho, pelo fato de ser uma solução melhor
                         auxiliar = vizinho;
+                        
+                        lk--;
                     }
                 else {
                     BigDecimal expoente = new BigDecimal(deltaCusto/tk);
                     
                     if (Math.pow(Math.E, tk) > Math.random())
-                        auxiliar = vizinho;
+                    { auxiliar = vizinho;
+                        lk--;}
                     }
             //Calcular Tk 
             tk = 0.5 * (tk-1);
-            lk--;
+            
         }
         
         return auxiliar;

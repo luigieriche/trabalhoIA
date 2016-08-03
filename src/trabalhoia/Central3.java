@@ -200,6 +200,8 @@ public class Central3 {
     
     public void interagir(ArrayList empresas, int n_players){
        Empresa uma_empresa = new Empresa(); 
+       Empresa aux1_empresa = new Empresa();
+       Empresa aux2_empresa = new Empresa();
       
       //Atualizando o  Saldo
       for(int i=0; i < n_players; i++){
@@ -228,15 +230,29 @@ public class Central3 {
               AlgoritmoSimulatedAnnealing aux = new AlgoritmoSimulatedAnnealing();
               annealings.add(aux);
           }
+       
+          aux1_empresa = (Empresa) empresas.get(0);
+         for (int y = 1; y < empresas.size(); y++){
+             aux2_empresa = (Empresa) empresas.get(y);
+             if (aux1_empresa.qtd_vendida <= aux2_empresa.qtd_vendida){
+                 aux1_empresa = aux2_empresa;
+             }
+             
+         }
+          
           
           for (int i=0; i < n_players; i++){
                uma_empresa = (Empresa) empresas.get(i);
                um_annealing = (AlgoritmoSimulatedAnnealing) annealings.get(i);
                
-               if(uma_empresa.qtd_vendida < uma_empresa.qtd_prod){
+               if((uma_empresa.qtd_vendida < uma_empresa.qtd_prod) && (uma_empresa.vlr_prod > aux1_empresa.vlr_prod)){
                    uma_empresa = um_annealing.inicia(uma_empresa, 0);
-               }else
-                   uma_empresa = um_annealing.inicia(uma_empresa, -1);
+               }else if ((uma_empresa.qtd_vendida < uma_empresa.qtd_prod) && (uma_empresa.vlr_prod < aux1_empresa.vlr_prod)){
+                   uma_empresa = um_annealing.inicia(uma_empresa, 1);}
+               else if ((uma_empresa.qtd_vendida >= uma_empresa.qtd_prod) && (uma_empresa.vlr_prod > aux1_empresa.vlr_prod)){
+                   uma_empresa = um_annealing.inicia(uma_empresa, 2);}
+               else if ((uma_empresa.qtd_vendida >= uma_empresa.qtd_prod) && (uma_empresa.vlr_prod < aux1_empresa.vlr_prod)){
+                   uma_empresa = um_annealing.inicia(uma_empresa, 3);}
             }
           
           this.vender(empresas, n_players);
